@@ -308,6 +308,23 @@
     backdrop-filter: blur(4px); padding: 3px 9px; border-radius: 999px;
   }
 
+  /* Wide screens: the vertical column looks lost in the middle of a landscape
+     picture, so the icons get bigger and line up along the bottom in a gentle arch
+     (outer icons lowest, the middle one highest — tuned for the 5 stages a quest has). */
+  @media (min-width: 900px) and (min-aspect-ratio: 1/1) {
+    .quest-icons {
+      flex-direction: row; align-items: flex-end; justify-content: center;
+      gap: clamp(28px, 4vw, 72px);
+      padding: 76px 40px max(7vh, 40px);
+    }
+    .quest-icon-btn { gap: 12px; }
+    .quest-icon-btn:nth-child(2), .quest-icon-btn:nth-child(4) { margin-bottom: clamp(40px, 7vh, 80px); }
+    .quest-icon-btn:nth-child(3) { margin-bottom: clamp(56px, 10vh, 110px); }
+    .quest-icon-badge { width: clamp(130px, 11vw, 190px); }
+    .quest-icon-check { width: 30px; height: 30px; font-size: 15px; right: -2px; bottom: -2px; border-width: 2px; }
+    .quest-icon-label { font-size: 16px; padding: 5px 14px; }
+  }
+
   .quest-viewport { position: absolute; inset: 0; z-index: 2; background: #fff; display: none; }
   .quest-viewport.show { display: block; }
   .quest-viewport iframe { width: 100%; height: 100%; border: 0; display: block; background: #fff; }

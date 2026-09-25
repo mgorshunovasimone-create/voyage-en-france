@@ -64,7 +64,7 @@
         {icon:"⚓", img:"assets/themes/nouvelle_aquitaine--port-de-la-lune.jpg", title:"Порт Луны", desc:"Купцы и атлантическая торговля."}
       ]},
     occitanie: { name:"Окситания", x:666, y:1037, parent:"nouvelle_aquitaine", cost:15,
-      hero:"assets/heroes/occitanie.jpg",
+      hero:"assets/heroes/occitanie.webp", peek:"assets/heroes/small/occitanie.webp",
       themes:[
         {icon:"✈️", img:"assets/themes/occitanie--aeropostale.jpg", title:"Аэропосталь", desc:"Сент-Экзюпери и рождение Airbus."},
         {icon:"🪕", img:"assets/themes/occitanie--troubadours.jpg", title:"Трубадуры", desc:"Поэты и музыканты юга — куртуазная любовь на langue d’oc."},
