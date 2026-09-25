@@ -2,7 +2,11 @@
 (function(){
   "use strict";
 
-  var IMG_SRC = "assets/map/france-map.png";
+  // Phones get a lighter 1000px copy of the map; the media query must match the
+  // <link rel="preload"> tags in index.html so the preloaded file is the one used.
+  var IMG_SRC = window.matchMedia("(max-width: 699px)").matches
+    ? "assets/map/france-map-mobile.webp"
+    : "assets/map/france-map.webp";
 
   var TENSES = ["Présent","Passé composé","Imparfait","Futur simple","Conditionnel","Subjonctif"];
 
@@ -215,7 +219,13 @@
       g.addEventListener("mouseleave", function(cid){ return function(){ scheduleHidePreview(); }; }(id));
       // pointerdown fires immediately on both mouse and touch (unlike click, which on many
       // mobile browsers needs a first "hover" tap before it fires on elements with :hover CSS).
-      g.addEventListener("pointerdown", function(cid){ return function(e){ e.preventDefault(); e.stopPropagation(); enterCity(cid); }; }(id));
+      // Touch screens have no hover, so the first tap plays the role of hover (shows the
+      // preview cards) and a second tap on the same pin enters the city.
+      g.addEventListener("pointerdown", function(cid){ return function(e){
+        e.preventDefault(); e.stopPropagation();
+        if (e.pointerType !== "mouse" && previewId !== cid){ openCityPreview(cid); return; }
+        enterCity(cid);
+      }; }(id));
       g.addEventListener("click", function(cid){ return function(e){ e.stopPropagation(); }; }(id));
       g.addEventListener("keydown", function(cid){ return function(ev){ if (ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); enterCity(cid); } }; }(id));
 
