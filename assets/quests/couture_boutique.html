@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Deuxième Vie — vente privée</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,500;1,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#eef0e4; --green:#7d9a4b; --green-d:#5f7a33; --pink:#f6b8c6; --pinkl:#fde4ea; --panel:#fffdf8; --ink:#27301b; --soft:#66705a; --line:rgba(39,48,27,.15);
+  --ok:#2f6b45; --okbg:#e3efe4; --no:#b23a2c; --nobg:#f6dfd9;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#161a12; --panel:#20251a; --ink:#eef0e4; --soft:#b3bba5; --line:rgba(238,240,228,.14); --ok:#8fcf9f; --okbg:rgba(47,107,69,.25); --no:#f0998c; --nobg:rgba(178,58,44,.22); } }
+:root[data-theme="dark"]{ --bg:#161a12; --panel:#20251a; --ink:#eef0e4; --soft:#b3bba5; --line:rgba(238,240,228,.14); --ok:#8fcf9f; --okbg:rgba(47,107,69,.25); --no:#f0998c; --nobg:rgba(178,58,44,.22); }
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Work Sans",system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 16px 48px;display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:30px;align-items:start}
+@media (max-width:860px){ .wrap{grid-template-columns:1fr;gap:18px;padding:12px 10px 32px} }
+
+/* ---------- story ---------- */
+.storywrap{position:sticky;top:16px}
+@media (max-width:860px){ .storywrap{position:static;max-width:420px;margin:0 auto;width:100%} }
+.story{position:relative;aspect-ratio:9/16;max-height:calc(100vh - 80px);margin:0 auto;background:var(--green);color:var(--pink);border-radius:22px;overflow:hidden;box-shadow:0 18px 44px rgba(40,55,20,.3);user-select:none;-webkit-user-select:none;container-type:inline-size}
+@media (max-width:860px){ .story{max-height:none} }
+.bars{position:absolute;top:10px;left:10px;right:10px;display:flex;gap:4px;z-index:3}
+.bars i{flex:1;height:2.5px;border-radius:2px;background:rgba(255,255,255,.35);overflow:hidden}
+.bars i.on{background:rgba(255,255,255,.95)}
+.shead{position:absolute;top:20px;left:12px;right:12px;display:flex;align-items:center;gap:8px;z-index:3;color:#fff;font-size:3.4cqw;font-weight:600}
+.shead .av{width:8cqw;height:8cqw;border-radius:50%;background:var(--pink);color:var(--green-d);display:grid;place-items:center;font-family:"Playfair Display",serif;font-style:italic;font-size:3.6cqw}
+.shead .time{opacity:.7;font-weight:400}
+.shead .x{margin-left:auto;font-size:5cqw;font-weight:300;line-height:1}
+.slide{position:absolute;inset:0;padding:17cqw 7cqw 8cqw;display:flex;flex-direction:column;align-items:center;gap:3.2cqw;text-align:center;opacity:0;pointer-events:none;transition:opacity .25s}
+.slide.on{opacity:1;pointer-events:auto}
+.tapzone{position:absolute;top:12%;bottom:0;width:34%;z-index:2;cursor:pointer;background:none;border:0}
+.tapzone.l{left:0} .tapzone.r{right:0}
+.tapzone:focus-visible{outline:2px solid #fff;outline-offset:-4px}
+.navhint{text-align:center;font-size:.82rem;color:var(--soft);margin-top:10px}
+.navbtns{display:flex;justify-content:center;gap:10px;margin-top:8px}
+.navbtns button{font:inherit;font-size:.9rem;font-weight:600;color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:5px 16px;cursor:pointer}
+.navbtns button:disabled{opacity:.35}
+
+.script{font-family:"Playfair Display",serif;font-style:italic;font-weight:500;font-size:16cqw;line-height:.9}
+.big{font-family:"Playfair Display",serif;font-weight:800;font-size:13.5cqw;line-height:.95}
+.h{font-family:"Playfair Display",serif;font-weight:800;font-size:10cqw;line-height:1}
+.h i{font-weight:500}
+.pill{border:1.5px solid var(--pink);border-radius:5cqw;padding:2.2cqw 4cqw;width:100%;font-weight:600;font-size:4cqw;letter-spacing:.02em;line-height:1.3}
+.pill small{display:block;font-weight:400;font-size:2.8cqw;letter-spacing:.06em;opacity:.9;margin-top:.5cqw}
+.cd{background:#fff;color:#1d1d1d;border-radius:4cqw;padding:3.4cqw 4cqw;width:88%;text-align:left}
+.cd .t{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:3.6cqw;letter-spacing:.03em}
+.cd .t span.c{width:5cqw;height:5cqw;border:1.5px solid #1d1d1d;border-radius:50%;display:grid;place-items:center;font-size:2.6cqw}
+.cd .digits{display:flex;align-items:center;gap:1.2cqw;margin-top:2.4cqw;font-size:7cqw;font-weight:500}
+.cd .digits b{background:#efefef;border-radius:1.4cqw;padding:.6cqw 1.6cqw;font-weight:500;min-width:6cqw;text-align:center}
+.cd .lab{display:flex;justify-content:space-between;font-size:2.8cqw;margin-top:1cqw;padding-right:6cqw}
+.burst{position:absolute;display:grid;place-items:center;text-align:center;color:var(--green-d);font-weight:700;font-size:2.7cqw;line-height:1.1;letter-spacing:.04em;text-transform:uppercase}
+.burst svg{position:absolute;inset:0;width:100%;height:100%}
+.burst svg polygon{fill:var(--pink)}
+.burst span{position:relative;padding:0 2cqw}
+.sign{font-family:"Playfair Display",serif;font-style:italic;font-size:6.5cqw;line-height:1.05}
+.sign b{font-style:normal;font-weight:800;font-size:8.5cqw;display:block}
+.rules{list-style:none;margin:0;padding:0;width:100%;display:flex;flex-direction:column;gap:2.3cqw}
+.rules li{border:1.5px solid var(--pink);border-radius:4cqw;padding:2cqw 3.4cqw;font-size:3.7cqw;line-height:1.3;text-align:left;display:flex;gap:2.4cqw;align-items:flex-start}
+.rules li b{font-family:"Playfair Display",serif;font-style:italic;font-size:5cqw;line-height:1}
+.sizes{width:100%;border-collapse:separate;border-spacing:0;font-size:4cqw;border:1.5px solid var(--pink);border-radius:4cqw;overflow:hidden}
+.sizes th{background:var(--pink);color:var(--green-d);font-weight:700;padding:1.6cqw}
+.sizes td{padding:1.6cqw;border-top:1px solid rgba(246,184,198,.4)}
+.sizes td:first-child,.sizes th:first-child{font-weight:700}
+.items{width:100%;display:flex;flex-direction:column;gap:2.4cqw}
+.item{border:1.5px solid var(--pink);border-radius:4cqw;padding:2.2cqw 3.4cqw;display:grid;grid-template-columns:1fr auto;gap:0 3cqw;text-align:left;font-size:3.7cqw;line-height:1.3}
+.item .n{font-weight:700}
+.item .d{grid-column:1;font-size:3.1cqw;opacity:.9}
+.item .p{grid-row:1/3;grid-column:2;align-self:center;font-family:"Playfair Display",serif;font-weight:800;font-size:5.2cqw;text-align:right}
+.item .p s{display:block;font-size:3cqw;font-weight:500;opacity:.75}
+.foot{font-size:3cqw;opacity:.9;margin-top:auto}
+
+/* ---------- task panel ---------- */
+.panel{background:var(--panel);border-radius:18px;padding:22px 22px 26px;box-shadow:0 0 0 1px var(--line)}
+.steps{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.steps button{font:inherit;font-size:.9rem;font-weight:600;color:inherit;background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
+.steps button[aria-selected="true"]{background:var(--green);border-color:var(--green);color:#fff}
+.steps button:disabled{opacity:.45;cursor:not-allowed}
+.steps button:focus-visible,.opt:focus-visible,.chip:focus-visible,.btn:focus-visible,.navbtns button:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+h3{font-family:"Playfair Display",Georgia,serif;font-weight:800;font-size:1.8rem;line-height:1.05;margin:0 0 6px;color:var(--green-d)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) h3{color:var(--pink)} }
+:root[data-theme="dark"] h3{color:var(--pink)}
+h3 i{font-weight:500}
+.lead{color:var(--soft);margin:0 0 6px}
+.helpnote{font-size:.85rem;color:var(--soft);margin:0 0 14px}
+.q{padding:14px 0;border-top:1px solid var(--line)}
+.q p{margin:0 0 8px;font-weight:600}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font:inherit;font-size:.93rem;color:inherit;background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
+.opt:hover{border-color:currentColor}
+.opt.right{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
+.opt.wrong{border-color:var(--no);background:var(--nobg);color:var(--no);text-decoration:line-through}
+.fb{font-size:.88rem;margin-top:6px;min-height:1.3em}
+.fb.ok{color:var(--ok)} .fb.ko{color:var(--no)}
+.btn{font:inherit;font-weight:600;background:var(--green);color:#fff;border:0;border-radius:999px;padding:11px 22px;cursor:pointer;margin-top:16px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.mission{background:var(--pinkl);color:#3a2a2e;border-radius:14px;padding:12px 14px;margin-bottom:16px}
+.mission b{color:#b0405c}
+.mission ul{margin:6px 0 0;padding-left:1.1em}
+.seestory{display:none;font:inherit;font-size:.85rem;background:none;border:0;color:#b0405c;text-decoration:underline;cursor:pointer;padding:0;margin-top:4px}
+@media (max-width:860px){ .seestory{display:inline} }
+.chat{display:flex;flex-direction:column;gap:8px;min-height:120px}
+.msg{max-width:86%;padding:9px 13px;border-radius:16px;line-height:1.45;animation:pop .2s ease-out}
+.msg .who{display:block;font-size:.72rem;font-weight:600;opacity:.7;margin-bottom:1px}
+.srv{align-self:flex-start;background:rgba(125,154,75,.14);border-bottom-left-radius:4px}
+.me{align-self:flex-end;background:var(--green-d);color:#fff;border-bottom-right-radius:4px}
+.gap{display:inline-block;min-width:74px;border-bottom:2px solid rgba(255,255,255,.9);text-align:center;padding:0 4px;font-weight:600}
+.gap.active{background:rgba(255,255,255,.2);border-radius:4px 4px 0 0}
+.gap.done{border-bottom-color:transparent;background:rgba(246,184,198,.35);border-radius:4px}
+.gap.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-4px)}50%{transform:translateX(4px)}75%{transform:translateX(-2px)}}
+@keyframes pop{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.chip{font:inherit;font-size:.95rem;color:inherit;background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:5px 13px;cursor:pointer}
+.chip:hover{border-color:var(--green)}
+.chip:disabled{opacity:.35;cursor:default}
+.hint{min-height:1.4em;margin-top:10px;font-size:.9rem;color:var(--no)}
+.receipt{margin:16px auto 0;max-width:300px;background:var(--green);color:var(--pink);border-radius:18px;padding:16px 18px 18px}
+.receipt h4{font-family:"Playfair Display",serif;font-style:italic;font-weight:500;font-size:1.8rem;margin:0 0 8px;text-align:center}
+.receipt .row{display:flex;justify-content:space-between;font-size:.95rem;padding:2px 0}
+.receipt .tot{border-top:1.5px solid var(--pink);margin-top:6px;padding-top:6px;font-weight:700}
+.done-msg{text-align:center;margin-top:16px}
+.done-msg b{font-family:"Playfair Display",serif;font-size:1.5rem;color:var(--green-d)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .done-msg b{color:var(--pink)} }
+:root[data-theme="dark"] .done-msg b{color:var(--pink)}
+
+.gl{border-bottom:1.5px dotted currentColor;cursor:help}
+.gl:hover,.gl:focus-visible,.gl.open{background:rgba(246,184,198,.28);outline:none}
+.story .gl{position:relative;z-index:4}
+#tip{position:fixed;z-index:50;max-width:260px;background:#27301b;color:#fde4ea;font-family:"Work Sans",sans-serif;font-size:.85rem;font-weight:500;letter-spacing:0;text-transform:none;font-style:normal;line-height:1.3;padding:6px 10px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.3);pointer-events:none;opacity:0;transition:opacity .1s}
+#tip.show{opacity:1}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion: reduce){ *{animation:none!important;transition:none!important} }
+</style>
+</head>
+<body>
+<div id="tip" role="tooltip"></div>
+<div class="wrap">
+  <div class="storywrap" id="storywrap">
+    <div class="story" id="story" aria-roledescription="story" aria-label="Сторис магазина Deuxième Vie">
+      <div class="bars" id="bars"><i class="on"></i><i></i><i></i><i></i></div>
+      <div class="shead"><span class="av">dv</span>deuxieme.vie <span class="time">2 h</span><span class="x" aria-hidden="true">×</span></div>
+
+      <section class="slide on" aria-label="1 / 4">
+        <div class="burst" style="width:22cqw;height:22cqw;left:4cqw;top:15cqw;transform:rotate(-14deg)"><svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,0 58,20 78,8 74,30 96,30 82,48 100,62 78,68 86,90 64,84 56,100 46,82 28,96 26,74 4,76 16,56 0,42 20,36 12,14 34,20"/></svg><span><span class="gl" tabindex="0" data-t="закрытая распродажа">Vente privée</span></span></div>
+        <div style="height:6cqw"></div>
+        <div class="script"><span class="gl" tabindex="0" data-t="«À vos agendas !» — отметьте в календаре">À vos</span></div>
+        <div class="big"><span class="gl" tabindex="0" data-t="agenda — ежедневник; всё выражение: «отметьте в календаре»">agendas</span>&nbsp;!</div>
+        <div class="pill"><span class="gl" tabindex="0" data-t="суббота">SAMEDI</span> &amp; <span class="gl" tabindex="0" data-t="воскресенье">DIMANCHE</span> — 11H–19H<small><span class="gl" tabindex="0" data-t="по предварительной записи">SUR INSCRIPTION</span> — <span class="gl" tabindex="0" data-t="ссылка в профиле">LIEN EN BIO</span></small></div>
+        <div class="cd"><div class="t"><span class="gl" tabindex="0" data-t="закрытие через">FERMETURE DANS</span> <span class="c">›</span></div><div class="digits"><b id="h1">0</b><b id="h2">0</b>:<b id="m1">0</b><b id="m2">0</b>:<b id="sc1">0</b><b id="sc2">0</b></div><div class="lab"><span>heures</span><span>minutes</span><span>secondes</span></div></div>
+        <div class="pill" style="font-family:'Playfair Display',serif;font-style:italic;font-weight:500;font-size:5cqw"><span class="gl" tabindex="0" data-t="мы вас ждём">On vous attend</span> au<br><b style="font-style:normal;font-weight:800;font-size:5.6cqw">14 RUE DU BAC, PARIS&nbsp;7<sup>e</sup></b><small style="font-family:'Work Sans';font-style:normal"><span class="gl" tabindex="0" data-t="винтажная кутюрная одежда 60–90-х">VINTAGE COUTURE DES ANNÉES 60 À 90</span></small></div>
+        <div class="sign"><span class="gl" tabindex="0" data-t="до скорой встречи">À très vite</span>&nbsp;!<b>Deuxième Vie</b></div>
+        <div class="burst" style="width:20cqw;height:20cqw;right:3cqw;bottom:14cqw;transform:rotate(12deg)"><svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,0 58,20 78,8 74,30 96,30 82,48 100,62 78,68 86,90 64,84 56,100 46,82 28,96 26,74 4,76 16,56 0,42 20,36 12,14 34,20"/></svg><span><span class="gl" tabindex="0" data-t="единственные экземпляры">Pièces uniques</span></span></div>
+      </section>
+
+      <section class="slide" aria-label="2 / 4">
+        <div class="h">Comment <i>ça marche</i>&nbsp;?</div>
+        <ul class="rules">
+          <li><b>1</b><span><span class="gl" tabindex="0" data-t="не больше трёх вещей">Trois pièces maximum</span> <span class="gl" tabindex="0" data-t="в примерочной">en cabine</span>.</span></li>
+          <li><b>2</b><span><span class="gl" tabindex="0" data-t="подгонка по фигуре на месте">Retouches sur place</span>&nbsp;: <span class="gl" tabindex="0" data-t="подшить низ — бесплатно">ourlet offert</span>, <span class="gl" tabindex="0" data-t="другие переделки">autres retouches</span> <span class="gl" tabindex="0" data-t="в течение 48 часов">sous 48 h</span>.</span></li>
+          <li><b>3</b><span><span class="gl" tabindex="0" data-t="обмен в течение 14 дней">Échange sous 14 jours</span>, <span class="gl" tabindex="0" data-t="при предъявлении чека">sur présentation du ticket de caisse</span>.</span></li>
+          <li><b>4</b><span><span class="gl" tabindex="0" data-t="деньги не возвращаются">Aucun remboursement</span>.</span></li>
+          <li><b>5</b><span><span class="gl" tabindex="0" data-t="товары со скидкой">Les articles soldés</span> <span class="gl" tabindex="0" data-t="не принимаются обратно и не обмениваются">ne sont ni repris ni échangés</span>.</span></li>
+          <li><b>6</b><span><span class="gl" tabindex="0" data-t="оплата только картой">Paiement par carte uniquement</span>.</span></li>
+        </ul>
+        <div class="foot"><span class="gl" tabindex="0" data-t="есть вопросы">Des questions</span>&nbsp;? <span class="gl" tabindex="0" data-t="пишите нам в директ">Écrivez-nous en DM</span> 💌</div>
+      </section>
+
+      <section class="slide" aria-label="3 / 4">
+        <div class="h"><span class="gl" tabindex="0" data-t="таблица">Guide</span> <i>des tailles</i></div>
+        <table class="sizes">
+          <thead><tr><th>FR</th><th>IT</th><th>US</th><th>RU</th></tr></thead>
+          <tbody>
+            <tr><td>36</td><td>40</td><td>4</td><td>42</td></tr>
+            <tr><td>38</td><td>42</td><td>6</td><td>44</td></tr>
+            <tr><td>40</td><td>44</td><td>8</td><td>46</td></tr>
+            <tr><td>42</td><td>46</td><td>10</td><td>48</td></tr>
+          </tbody>
+        </table>
+        <div class="pill" style="font-weight:500"><span class="gl" tabindex="0" data-t="между двумя размерами">Entre deux tailles</span>&nbsp;? <span class="gl" tabindex="0" data-t="берите размер больше">Prenez la taille au-dessus</span>&nbsp;: <span class="gl" tabindex="0" data-t="винтажные жакеты">les vestes vintage</span> <span class="gl" tabindex="0" data-t="маломерят">taillent petit</span>&nbsp;!</div>
+        <div class="burst" style="position:relative;width:30cqw;height:30cqw;transform:rotate(-8deg);margin-top:2cqw"><svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,0 58,20 78,8 74,30 96,30 82,48 100,62 78,68 86,90 64,84 56,100 46,82 28,96 26,74 4,76 16,56 0,42 20,36 12,14 34,20"/></svg><span style="font-size:3.2cqw"><span class="gl" tabindex="0" data-t="точные мерки">Mesures</span><br><span class="gl" tabindex="0" data-t="по запросу">sur demande</span></span></div>
+      </section>
+
+      <section class="slide" aria-label="4 / 4">
+        <div class="h"><span class="gl" tabindex="0" data-t="наши находки">Nos pépites</span></div>
+        <div class="items">
+          <div class="item"><span class="n"><span class="gl" tabindex="0" data-t="твидовый жакет">Veste en tweed</span>, <span class="gl" tabindex="0" data-t="60-е годы">années 60</span></span><span class="d">T 38 · T 40</span><span class="p">850 €</span></div>
+          <div class="item"><span class="n"><span class="gl" tabindex="0" data-t="широкие брюки">Pantalon large</span> <span class="gl" tabindex="0" data-t="шерстяные">en laine</span></span><span class="d">T 38 · <span class="gl" tabindex="0" data-t="удлинённый крой">coupe longue</span></span><span class="p">180 €</span></div>
+          <div class="item"><span class="n"><span class="gl" tabindex="0" data-t="маленькое чёрное платье">Petite robe noire</span></span><span class="d">T 36</span><span class="p">420 €</span></div>
+          <div class="item"><span class="n"><span class="gl" tabindex="0" data-t="стёганая сумка">Sac matelassé</span></span><span class="d"><span class="gl" tabindex="0" data-t="кожа">cuir</span> <span class="gl" tabindex="0" data-t="бордовый">bordeaux</span></span><span class="p">1 200 €</span></div>
+          <div class="item"><span class="n"><span class="gl" tabindex="0" data-t="шёлковый платок (вид foulard)">Carré de soie</span></span><span class="d"><span class="gl" tabindex="0" data-t="цветочный принт">imprimé fleuri</span></span><span class="p"><s>140 €</s>98 €</span></div>
+        </div>
+        <div class="burst" style="width:24cqw;height:24cqw;right:6cqw;bottom:20cqw;transform:rotate(14deg)"><svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,0 58,20 78,8 74,30 96,30 82,48 100,62 78,68 86,90 64,84 56,100 46,82 28,96 26,74 4,76 16,56 0,42 20,36 12,14 34,20"/></svg><span>−30&nbsp;%<br><span class="gl" tabindex="0" data-t="платки">foulards</span></span></div>
+        <div class="foot"><span class="gl" tabindex="0" data-t="кто первый пришёл, того и вещь">Premier arrivé, premier servi</span> 💚</div>
+      </section>
+
+      <button class="tapzone l" id="prev" aria-label="Предыдущая сторис"></button>
+      <button class="tapzone r" id="next" aria-label="Следующая сторис"></button>
+    </div>
+    <div class="navbtns"><button id="bprev" disabled>← назад</button><button id="bnext">дальше →</button></div>
+    <div class="navhint">Листай сторис: нажимай на правый или левый край. Подчёркнутые слова — с переводом.</div>
+  </div>
+
+  <section class="panel">
+    <div class="steps" role="tablist">
+      <button role="tab" id="t1" aria-selected="true">1. Читаем сторис</button>
+      <button role="tab" id="t2" aria-selected="false" disabled>2. Примерка</button>
+    </div>
+
+    <div id="s1">
+      <h3>Lis la <i>story</i></h3>
+      <p class="lead">Винтажный бутик выложил сторис о закрытой распродаже. Пролистай все четыре слайда и ответь на вопросы.</p>
+      <p class="helpnote">Подчёркнутые слова можно навести или нажать — появится перевод.</p>
+      <div id="quiz"></div>
+      <button class="btn" id="go2" disabled>Идём в бутик</button>
+    </div>
+
+    <div id="s2" hidden>
+      <h3>L'<i>essayage</i></h3>
+      <div class="mission">
+        <b>Миссия.</b> Суббота, 15:00, Deuxième Vie.
+        <ul>
+          <li>В России ты носишь 44-й размер.</li>
+          <li>Хочешь твидовый жакет и широкие брюки.</li>
+          <li>Ты невысокая, так что брюки могут оказаться длинными.</li>
+        </ul>
+        <button class="seestory" id="seestory">Открыть сторис</button>
+      </div>
+      <div class="chat" id="chat" aria-live="polite"></div>
+      <div class="hint" id="hint" aria-live="polite"></div>
+      <div class="bank" id="bank"></div>
+      <div id="final" hidden>
+        <div class="receipt">
+          <h4>Merci&nbsp;!</h4>
+          <div class="row"><span>Veste en tweed, T 40</span><span>850 €</span></div>
+          <div class="row"><span>Pantalon en laine, T 38</span><span>180 €</span></div>
+          <div class="row"><span>Ourlet</span><span>offert</span></div>
+          <div class="row tot"><span>Total (carte)</span><span>1 030 €</span></div>
+        </div>
+        <div class="done-msg"><b>Bravo&nbsp;! +1 🥐</b><br>Чек сохрани: без него обмен в течение 14 дней не сработает.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+"use strict";
+function nb(t){ return t.replace(/ ([?!:;»])/g,"\u00a0$1").replace(/« /g,"«\u00a0"); }
+function esc(t){return String(t).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+function gl(t){ return t.replace(/\[\[(.+?)\|(.+?)\]\]/g,'<span class="gl" tabindex="0" data-t="$2">$1</span>'); }
+function strip(t){ return t.replace(/\[\[(.+?)\|.+?\]\]/g,"$1"); }
+
+/* tooltip */
+var tip=document.getElementById("tip"), openEl=null;
+function showTip(el){ tip.textContent=el.getAttribute("data-t"); tip.classList.add("show");
+  var r=el.getBoundingClientRect(), tw=tip.offsetWidth, th=tip.offsetHeight, vw=document.documentElement.clientWidth;
+  var x=Math.max(8,Math.min(vw-tw-8,r.left+r.width/2-tw/2)), y=r.top-th-8; if(y<8) y=r.bottom+8;
+  tip.style.left=x+"px"; tip.style.top=y+"px"; }
+function hideTip(){ tip.classList.remove("show"); if(openEl){openEl.classList.remove("open"); openEl=null;} }
+document.addEventListener("mouseover",function(e){ var g=e.target.closest(".gl"); if(g) showTip(g); });
+document.addEventListener("mouseout",function(e){ var g=e.target.closest(".gl"); if(g&&g!==openEl) tip.classList.remove("show"); });
+document.addEventListener("focusin",function(e){ var g=e.target.closest(".gl"); if(g) showTip(g); });
+document.addEventListener("focusout",function(e){ if(e.target.closest(".gl")) hideTip(); });
+document.addEventListener("click",function(e){ var g=e.target.closest(".gl"); if(g){ e.stopPropagation(); if(openEl===g){hideTip();return;} hideTip(); openEl=g; g.classList.add("open"); showTip(g); } else hideTip(); },true);
+window.addEventListener("scroll",function(){ if(openEl) hideTip(); else tip.classList.remove("show"); },{passive:true});
+
+/* story navigation */
+var slides=document.querySelectorAll(".slide"), bars=document.querySelectorAll("#bars i"), cur=0, seen={0:true};
+function go(n){ if(n<0||n>=slides.length) return; slides[cur].classList.remove("on"); cur=n; slides[cur].classList.add("on"); seen[n]=true;
+  bars.forEach(function(b,i){ b.classList.toggle("on",i<=cur); });
+  document.getElementById("bprev").disabled=cur===0; document.getElementById("bnext").disabled=cur===slides.length-1; hideTip(); }
+document.getElementById("prev").onclick=function(){ go(cur-1); };
+document.getElementById("next").onclick=function(){ go(cur+1); };
+document.getElementById("bprev").onclick=function(){ go(cur-1); };
+document.getElementById("bnext").onclick=function(){ go(cur+1); };
+document.getElementById("story").addEventListener("keydown",function(e){ if(e.key==="ArrowRight") go(cur+1); if(e.key==="ArrowLeft") go(cur-1); });
+
+/* countdown to next 19:00 */
+function pad(n){ return (n<10?"0":"")+n; }
+function tick(){ var now=new Date(), end=new Date(now); end.setHours(19,0,0,0); if(end<=now) end.setDate(end.getDate()+1);
+  var s=Math.floor((end-now)/1000), h=pad(Math.floor(s/3600)), m=pad(Math.floor(s%3600/60)), ss=pad(s%60);
+  document.getElementById("h1").textContent=h[0]; document.getElementById("h2").textContent=h[1];
+  document.getElementById("m1").textContent=m[0]; document.getElementById("m2").textContent=m[1];
+  document.getElementById("sc1").textContent=ss[0]; document.getElementById("sc2").textContent=ss[1]; }
+tick(); setInterval(tick,1000);
+
+/* reading quiz */
+var Q=[
+ {q:"La vente est ouverte quels jours ?",o:["du lundi au vendredi","le samedi et le dimanche","seulement le dimanche"],a:1,why:"Слайд 1: samedi & dimanche, 11h–19h.",sl:0},
+ {q:"En Russie, tu fais du 44. Quelle est ta taille française ?",o:["36","38","44"],a:1,why:"Слайд 3: RU 44 = FR 38 = IT 42.",sl:2},
+ {q:"Tu [[hésites|колеблешься]] entre le 38 et le 40 pour une veste vintage. Qu'est-ce que la boutique [[conseille|советует]] ?",o:["le 38","le 40","de faire une retouche"],a:1,why:"«Prenez la taille au-dessus» — винтажные жакеты маломерят.",sl:2},
+ {q:"Tu peux prendre combien de [[vêtements|вещей]] en cabine ?",o:["deux","trois","autant que tu veux"],a:1,why:"Слайд 2, правило 1.",sl:1},
+ {q:"Le pantalon est trop long. L'ourlet coûte combien ?",o:["rien","98 €","ça dépend"],a:0,why:"«Ourlet offert» — подшить низ бесплатно.",sl:1},
+ {q:"Tu achètes le carré de soie à 98 €. [[Finalement|в итоге]], il ne te plaît pas. Tu peux l'échanger ?",o:["oui, sous 14 jours","oui, avec le ticket","non"],a:2,why:"Платок продаётся со скидкой, а soldés ni repris ni échangés.",sl:1},
+ {q:"La veste ne te va plus à la maison. Qu'est-ce qui est possible ?",o:["être remboursée","l'échanger avec le ticket","la rendre sans ticket"],a:1,why:"Aucun remboursement — только обмен, и только с чеком.",sl:1}
+];
+var quiz=document.getElementById("quiz"), solved=0;
+Q.forEach(function(it){
+  var d=document.createElement("div"); d.className="q";
+  d.innerHTML='<p>'+gl(esc(nb(it.q)))+'</p><div class="opts">'+it.o.map(function(o,j){return '<button class="opt" data-j="'+j+'">'+esc(nb(o))+'</button>';}).join("")+'</div><div class="fb" aria-live="polite"></div>';
+  d.querySelectorAll(".opt").forEach(function(b){ b.addEventListener("click",function(){
+    var fb=d.querySelector(".fb");
+    if(+b.dataset.j===it.a){ d.querySelectorAll(".opt").forEach(function(x){x.disabled=true;}); b.classList.add("right"); fb.className="fb ok"; fb.textContent="C'est ça ! "+it.why; solved++; if(solved===Q.length) document.getElementById("go2").disabled=false; }
+    else { b.classList.add("wrong"); fb.className="fb ko"; fb.textContent="Не совсем — подсказка на слайде "+(it.sl+1)+"."; go(it.sl); }
+  }); });
+  quiz.appendChild(d);
+});
+
+/* tabs */
+var t1=document.getElementById("t1"), t2=document.getElementById("t2"), s1=document.getElementById("s1"), s2=document.getElementById("s2"), started=false;
+function tab(n){ s1.hidden=n!==1; s2.hidden=n!==2; t1.setAttribute("aria-selected",n===1); t2.setAttribute("aria-selected",n===2); if(n===2&&!started){ started=true; next(); } }
+t1.onclick=function(){tab(1);}; t2.onclick=function(){tab(2);};
+document.getElementById("go2").onclick=function(){ t2.disabled=false; tab(2); if(window.innerWidth<=860) s2.scrollIntoView({behavior:"smooth"}); };
+document.getElementById("seestory").onclick=function(){ document.getElementById("storywrap").scrollIntoView({behavior:"smooth"}); };
+
+/* dialogue */
+var BANK=["36","38","44","serrée","large","ourlets","soldes","échanger","rembourser","ticket","carte","repris","vendus","espèces"];
+var D=[
+ {s:"Bonjour ! Je peux vous [[aider|помочь]] ?"},
+ {m:"Oui, je [[cherche|ищу]] la veste en tweed, en taille {gap}, s'il vous plaît.",a:"38",why:{"44":"44 — это российский размер. Посмотри таблицу на слайде 3.","36":"36 — это российский 42. А у тебя 44.",_:"Какой французский размер соответствует российскому 44?"}},
+ {s:"[[Voilà|вот, пожалуйста]]. La cabine est [[au fond|в глубине зала]]. Alors, [[elle vous va|она вам идёт / подходит]] ?"},
+ {m:"Elle est un peu trop {gap}. Je peux essayer la taille [[au-dessus|на размер больше]] ?",a:"serrée",why:{"large":"Если бы жакет был широк, ты бы просила размер меньше, а не au-dessus.",_:"Почему нужен размер больше?"}},
+ {s:"Bien sûr, voici le 40. [[Les vestes vintage taillent petit|винтажные жакеты маломерят]]. Et le pantalon ?"},
+ {m:"Il est parfait, mais un peu trop long. Vous faites les {gap} ?",a:"ourlets",why:{"soldes":"Soldes — это распродажа. А тебе нужно подшить брюки.",_:"Что делают, если брюки длинные?"}},
+ {s:"Oui, et c'est [[offert|бесплатно]] ! Ce sera [[prêt|готово]] dans une heure."},
+ {m:"Super ! Et si je [[change d'avis|передумаю]], je peux {gap} la veste sous quatorze jours ?",a:"échanger",why:{"rembourser":"На слайде 2: aucun remboursement. Вернуть деньги нельзя, только обменять.",_:"Что разрешено в течение 14 дней?"}},
+ {s:"Oui, [[à condition d'avoir|при условии, что у вас есть]] votre…"},
+ {m:"…{gap} de caisse, bien sûr.",a:"ticket",why:{"carte":"Carte — это карта. А для обмена нужен чек.",_:"Какой документ нужен для обмена?"}},
+ {s:"Parfait ! Et ce carré de soie à moins trente pour cent, [[ça vous tente|не соблазнитесь]] ?"},
+ {m:"Il est joli, mais les articles soldés ne sont ni {gap} ni échangés… Je préfère [[réfléchir|подумать]].",a:"repris",why:{"vendus":"«Ni vendus» — «не продаются»: но их как раз продают! Правило на слайде 2.",_:"Посмотри правило 5 на слайде 2."}},
+ {s:"[[Sage décision|мудрое решение]] ! Vous [[réglez|платите]] comment ?"},
+ {m:"Par {gap}.",a:"carte",why:{"espèces":"На слайде 2: paiement par carte uniquement — наличные не берут.",_:"Как здесь можно платить?"}},
+ {s:"Merci et à bientôt chez Deuxième Vie !"}
+];
+var chat=document.getElementById("chat"), bank=document.getElementById("bank"), hint=document.getElementById("hint"), step=-1, curD=null;
+bank.innerHTML=BANK.map(function(w){return '<button class="chip" disabled>'+w+'</button>';}).join("");
+var chips=bank.querySelectorAll(".chip");
+function add(cls,html,who){ var d=document.createElement("div"); d.className="msg "+cls; d.innerHTML=(who?'<span class="who">'+who+'</span>':'')+html; chat.appendChild(d); return d; }
+function next(){
+  step++; if(step>=D.length){ bank.hidden=true; hint.hidden=true; document.getElementById("final").hidden=false; return; }
+  var it=D[step];
+  if(it.s){ add("srv",gl(esc(nb(it.s))),"Vendeuse"); setTimeout(next,650); }
+  else { var parts=nb(it.m).split("{gap}"); var d=add("me",gl(esc(parts[0]))+'<span class="gap active">&nbsp;</span>'+gl(esc(parts[1])),"Toi");
+    curD={it:it,gap:d.querySelector(".gap")}; chips.forEach(function(c){c.disabled=false;}); hint.textContent=""; }
+}
+chips.forEach(function(c){ c.addEventListener("click",function(){
+  if(!curD) return; var w=c.textContent;
+  if(w===curD.it.a){ curD.gap.textContent=w; curD.gap.className="gap done"; curD=null; chips.forEach(function(x){x.disabled=true;}); hint.textContent=""; setTimeout(next,450); }
+  else { hint.textContent=curD.it.why[w]||curD.it.why._; curD.gap.classList.remove("shake"); void curD.gap.offsetWidth; curD.gap.classList.add("shake"); }
+}); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Au Petit Platane — la carte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Caveat:wght@500;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#efe6dc; --card:#f8f1e7; --ink:#2b2622; --soft:#6f655b; --red:#c2412e; --line:rgba(43,38,34,.16);
+  --ok:#2f6b45; --okbg:#e3efe4; --no:#b23a2c; --nobg:#f6dfd9; --panel:#fffaf3;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#1b1715; --panel:#262120; --ink2:#efe6dc; } }
+:root[data-theme="dark"]{ --bg:#1b1715; --panel:#262120; --ink2:#efe6dc; }
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Work Sans",system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 16px 48px;display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:32px;align-items:start}
+@media (max-width:860px){ .wrap{grid-template-columns:1fr;gap:22px;padding-top:14px} }
+
+/* the menu card */
+.menu{position:sticky;top:16px;background:var(--card);color:#2b2622;padding:26px 26px 22px;border-radius:4px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 16px 40px rgba(0,0,0,.14)}
+@media (max-width:860px){ .menu{position:static} }
+.menu::after{content:"";position:absolute;inset:9px;border:1.5px solid rgba(194,65,46,.35);border-radius:2px;pointer-events:none}
+.mtitle{text-align:center;position:relative;margin-bottom:10px}
+.mtitle h1{font-family:"Caveat Brush",cursive;font-weight:400;color:var(--red);font-size:2.9rem;line-height:.95;margin:0;letter-spacing:.04em}
+.mtitle .tag{font-family:Caveat,cursive;font-size:1.2rem;color:#6f655b}
+.doodle{position:absolute;stroke:#2b2622;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.mh{font-family:"Caveat Brush",cursive;color:var(--red);font-size:1.6rem;margin:16px 0 2px;letter-spacing:.05em;display:flex;justify-content:space-between;align-items:baseline}
+.mh small{font-family:Caveat,cursive;color:#6f655b;font-size:1rem;letter-spacing:0}
+.row{display:grid;grid-template-columns:1fr auto;gap:8px;font-family:Caveat,cursive;font-weight:500;font-size:1.32rem;line-height:1.25;padding:1px 0}
+.row .n{text-transform:uppercase;letter-spacing:.02em}
+.row .n i{font-style:normal;text-transform:none;font-size:1.02rem;color:#6f655b;display:block;margin-top:-2px}
+.row .p{white-space:nowrap}
+.tri{display:grid;grid-template-columns:1fr 50px 50px 56px;gap:4px;font-family:Caveat,cursive;font-weight:500;font-size:1.32rem;line-height:1.25;padding:1px 0}
+.tri span:not(:first-child){text-align:right}
+.tri.head{font-size:1rem;color:#6f655b;border-bottom:1px dashed rgba(43,38,34,.3);margin-bottom:2px}
+.tri .n{text-transform:uppercase;letter-spacing:.02em}
+.formule{margin-top:14px;border:1.5px dashed var(--red);padding:8px 12px;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.2}
+.formule b{font-family:"Caveat Brush",cursive;font-weight:400;color:var(--red);letter-spacing:.04em}
+.mfoot{text-align:center;font-family:Caveat,cursive;font-size:1.15rem;color:#6f655b;margin-top:12px}
+
+/* task panel */
+.panel{background:var(--panel);color:var(--ink2,var(--ink));border-radius:16px;padding:22px 22px 26px;box-shadow:0 0 0 1px var(--line)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .panel{--line:rgba(239,230,220,.14);--soft:#b8ab9c} }
+:root[data-theme="dark"] .panel{--line:rgba(239,230,220,.14);--soft:#b8ab9c}
+.steps{display:flex;gap:8px;margin-bottom:18px}
+.steps button{font:inherit;font-size:.9rem;font-weight:600;color:inherit;background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
+.steps button[aria-selected="true"]{background:var(--red);border-color:var(--red);color:#fff}
+.steps button:disabled{opacity:.45;cursor:not-allowed}
+.steps button:focus-visible,.opt:focus-visible,.chip:focus-visible,.btn:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+h2{font-family:"Caveat Brush",cursive;font-weight:400;font-size:2rem;line-height:1.05;margin:0 0 6px;color:var(--red)}
+.lead{color:var(--soft);margin:0 0 18px}
+.q{padding:14px 0;border-top:1px solid var(--line)}
+.q p{margin:0 0 8px;font-weight:600}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font:inherit;font-size:.93rem;color:inherit;background:transparent;border:1.5px solid var(--line);border-radius:10px;padding:6px 12px;cursor:pointer}
+.opt:hover{border-color:currentColor}
+.opt.right{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
+.opt.wrong{border-color:var(--no);background:var(--nobg);color:var(--no);text-decoration:line-through}
+.fb{font-size:.88rem;margin-top:6px;min-height:1.3em}
+.fb.ok{color:var(--ok)} .fb.ko{color:var(--no)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --okbg:rgba(47,107,69,.25); --nobg:rgba(178,58,44,.22); --ok:#8fcf9f; --no:#f0998c; } }
+:root[data-theme="dark"]{ --okbg:rgba(47,107,69,.25); --nobg:rgba(178,58,44,.22); --ok:#8fcf9f; --no:#f0998c; }
+.btn{font:inherit;font-weight:600;background:var(--red);color:#fff;border:0;border-radius:12px;padding:11px 20px;cursor:pointer;margin-top:16px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+.mission{background:rgba(194,65,46,.08);border-radius:12px;padding:12px 14px;margin-bottom:16px}
+.mission b{color:var(--red)}
+.mission ul{margin:6px 0 0;padding-left:1.1em}
+.chat{display:flex;flex-direction:column;gap:8px;min-height:120px}
+.msg{max-width:86%;padding:9px 13px;border-radius:14px;line-height:1.45;animation:pop .2s ease-out}
+.msg .who{display:block;font-size:.72rem;font-weight:600;opacity:.7;margin-bottom:1px}
+.srv{align-self:flex-start;background:rgba(43,38,34,.07);border-bottom-left-radius:4px}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .srv{background:rgba(239,230,220,.08)} }
+:root[data-theme="dark"] .srv{background:rgba(239,230,220,.08)}
+.me{align-self:flex-end;background:var(--red);color:#fff;border-bottom-right-radius:4px}
+.note{align-self:center;font-style:italic;font-size:.85rem;color:var(--soft)}
+.gap{display:inline-block;min-width:74px;border-bottom:2px solid rgba(255,255,255,.9);text-align:center;padding:0 4px;font-weight:600}
+.gap.active{background:rgba(255,255,255,.22);border-radius:4px 4px 0 0}
+.gap.done{border-bottom-color:transparent;background:rgba(255,255,255,.2);border-radius:4px}
+.gap.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-4px)}50%{transform:translateX(4px)}75%{transform:translateX(-2px)}}
+@keyframes pop{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.chip{font:inherit;font-size:.95rem;color:inherit;background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:5px 13px;cursor:pointer}
+.chip:hover{border-color:var(--red)}
+.chip:disabled{opacity:.35;cursor:default}
+.hint{min-height:1.4em;margin-top:10px;font-size:.9rem;color:var(--no)}
+
+.ticket{margin:14px auto 0;max-width:280px;background:#fffdf8;color:#2b2622;padding:16px 18px 20px;font-family:ui-monospace,"Courier New",monospace;font-size:.9rem;box-shadow:0 8px 22px rgba(0,0,0,.15);
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 8px) no-repeat,radial-gradient(circle 6px at 8px 100%,#0000 98%,#000) bottom/16px 8px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 8px) no-repeat,radial-gradient(circle 6px at 8px 100%,#0000 98%,#000) bottom/16px 8px repeat-x}
+.ticket h3{font-family:"Caveat Brush",cursive;font-weight:400;color:#c2412e;text-align:center;margin:0 0 8px;font-size:1.5rem}
+.ticket div{display:flex;justify-content:space-between}
+.ticket .tot{border-top:1px dashed #999;margin-top:6px;padding-top:6px;font-weight:700}
+.ticket small{display:block;text-align:center;margin-top:8px;color:#6f655b}
+.done-msg{text-align:center;margin-top:16px}
+.done-msg b{font-family:"Caveat Brush",cursive;font-weight:400;font-size:1.6rem;color:var(--red)}
+.seemenu{display:none;font:inherit;font-size:.85rem;background:none;border:0;color:var(--red);text-decoration:underline;cursor:pointer;padding:0;margin-left:6px}
+@media (max-width:860px){ .seemenu{display:inline} }
+[hidden]{display:none!important}
+@media (prefers-reduced-motion: reduce){ *{animation:none!important;transition:none!important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="menu" id="menu" aria-label="Меню кафе">
+    <div class="mtitle">
+      <svg class="doodle" style="left:-2px;top:6px" width="46" height="54" viewBox="0 0 46 54" aria-hidden="true"><path d="M8 24 h24 v12 c0 8-5 12-12 12 s-12-4-12-12z"/><path d="M32 28 c7-1 8 8 0 9"/><path d="M4 49 h32"/><path d="M14 18 c-3-4 3-6 0-11 M21 18 c-3-4 3-6 0-11"/></svg>
+      <h1>AU PETIT<br>PLATANE</h1>
+      <div class="tag">café — bistrot depuis 1927</div>
+      <svg class="doodle" style="right:-4px;top:10px" width="62" height="40" viewBox="0 0 62 40" aria-hidden="true"><path d="M4 30 C10 10 50 10 58 30 C48 36 14 36 4 30z"/><path d="M18 14 l4 18 M31 11 v22 M44 14 l-4 18"/></svg>
+    </div>
+
+    <div class="mh">BOISSONS CHAUDES</div>
+    <div class="tri head"><span></span><span>comptoir</span><span>salle</span><span>terrasse</span></div>
+    <div class="tri"><span class="n">Café</span><span>1,40</span><span>2,80</span><span>3,20</span></div>
+    <div class="tri"><span class="n">Café allongé</span><span>1,60</span><span>3,00</span><span>3,40</span></div>
+    <div class="tri"><span class="n">Noisette</span><span>1,60</span><span>3,00</span><span>3,50</span></div>
+    <div class="tri"><span class="n">Café crème</span><span>2,50</span><span>4,80</span><span>5,50</span></div>
+    <div class="tri"><span class="n">Chocolat chaud</span><span>3,00</span><span>5,50</span><span>6,00</span></div>
+    <div class="tri"><span class="n">Thé</span><span>—</span><span>4,50</span><span>5,00</span></div>
+
+    <div class="mh">BOISSONS FRAÎCHES</div>
+    <div class="row"><span class="n">Jus d'orange pressé</span><span class="p">€ 5,50</span></div>
+    <div class="row"><span class="n">Citronnade maison</span><span class="p">€ 4,50</span></div>
+    <div class="row"><span class="n">Eau minérale <i>bouteille 50 cl</i></span><span class="p">€ 5,00</span></div>
+
+    <div class="mh">VIENNOISERIES <svg class="doodle" style="position:static" width="38" height="24" viewBox="0 0 62 40" aria-hidden="true"><path d="M4 30 C10 10 50 10 58 30 C48 36 14 36 4 30z"/><path d="M18 14 l4 18 M31 11 v22 M44 14 l-4 18"/></svg></div>
+    <div class="row"><span class="n">Croissant</span><span class="p">€ 1,80</span></div>
+    <div class="row"><span class="n">Pain au chocolat</span><span class="p">€ 2,00</span></div>
+    <div class="row"><span class="n">Croissant aux amandes</span><span class="p">€ 3,50</span></div>
+    <div class="row"><span class="n">Tartine <i>beurre &amp; confiture</i></span><span class="p">€ 3,00</span></div>
+
+    <div class="mh">SALÉ</div>
+    <div class="row"><span class="n">Croque-monsieur</span><span class="p">€ 9,50</span></div>
+    <div class="row"><span class="n">Croque-madame <i>avec un œuf</i></span><span class="p">€ 11,00</span></div>
+    <div class="row"><span class="n">Salade de chèvre chaud</span><span class="p">€ 14,00</span></div>
+
+    <div class="formule"><b>FORMULE PETIT-DÉJ</b> — jusqu'à 11h — € 12,00<br>boisson chaude + viennoiserie + jus d'orange pressé</div>
+    <div class="mfoot">Service compris — prix en euros TTC</div>
+  </section>
+
+  <section class="panel">
+    <div class="steps" role="tablist">
+      <button role="tab" id="t1" aria-selected="true">1. Читаем меню</button>
+      <button role="tab" id="t2" aria-selected="false" disabled>2. Делаем заказ</button>
+    </div>
+
+    <div id="s1">
+      <h2>Lis la carte</h2>
+      <p class="lead">Официант ещё не подошёл — самое время изучить меню. Ответь на вопросы.</p>
+      <div id="quiz"></div>
+      <button class="btn" id="go2" disabled>Позвать официанта</button>
+    </div>
+
+    <div id="s2" hidden>
+      <h2>Commande</h2>
+      <div class="mission">
+        <b>Миссия.</b> 15:00, ты ждёшь Léa на террасе.
+        <ul>
+          <li>Хочешь большой кофе с молоком и что-то сладкое.</li>
+          <li>Бюджет — 10 €, платишь только картой.</li>
+        </ul>
+        <button class="seemenu" id="seemenu">Открыть меню</button>
+      </div>
+      <div class="chat" id="chat" aria-live="polite"></div>
+      <div class="hint" id="hint" aria-live="polite"></div>
+      <div class="bank" id="bank"></div>
+      <div id="final" hidden>
+        <div class="ticket">
+          <h3>L'addition</h3>
+          <div><span>1 café crème (terr.)</span><span>5,50</span></div>
+          <div><span>1 pain au chocolat</span><span>2,00</span></div>
+          <div><span>1 carafe d'eau</span><span>0,00</span></div>
+          <div class="tot"><span>TOTAL</span><span>7,50 €</span></div>
+          <small>Service compris — merci&nbsp;!</small>
+        </div>
+        <div class="done-msg"><b>Bravo&nbsp;! +1 🥐</b><br>7,50 € — в бюджет уложилась. Чаевые не обязательны: обслуживание уже в цене, но оставить пару монет — приятный жест.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+"use strict";
+var Q=[
+ {q:"Où est-ce que le café coûte le moins cher ?",o:["au comptoir","en salle","en terrasse"],a:0,why:"1,40 € у стойки против 3,20 € на террасе: чем дольше сидишь, тем дороже."},
+ {q:"Quelle est la différence entre un croque-monsieur et un croque-madame ?",o:["Il y a un œuf","Il n'y a pas de pain","C'est végétarien"],a:0,why:"Croque-madame — тот же сэндвич, но с яйцом сверху."},
+ {q:"Il est 15h. Peut-on prendre la formule petit-déj ?",o:["Oui","Non"],a:1,why:"Формула действует jusqu'à 11h — только до 11 утра."},
+ {q:"Combien coûte un noisette en terrasse ?",o:["1,60 €","3,00 €","3,50 €"],a:2,why:"Noisette — эспрессо с каплей молока."},
+ {q:"Peut-on commander un thé au comptoir ?",o:["Oui","Non"],a:1,why:"В колонке comptoir у чая прочерк."},
+ {q:"« Service compris » signifie que…",o:["le pourboire est obligatoire","le service est déjà dans le prix","le service est gratuit"],a:1,why:"Обслуживание уже включено в цену."}
+];
+var quiz=document.getElementById("quiz"), solved=0;
+Q.forEach(function(it){
+  var d=document.createElement("div"); d.className="q";
+  d.innerHTML='<p>'+it.q+'</p><div class="opts">'+it.o.map(function(o,j){return '<button class="opt" data-j="'+j+'">'+o+'</button>';}).join("")+'</div><div class="fb" aria-live="polite"></div>';
+  d.querySelectorAll(".opt").forEach(function(b){ b.addEventListener("click",function(){
+    var fb=d.querySelector(".fb");
+    if(+b.dataset.j===it.a){ d.querySelectorAll(".opt").forEach(function(x){x.disabled=true;}); b.classList.add("right"); fb.className="fb ok"; fb.textContent="C'est ça ! "+it.why; solved++; if(solved===Q.length) document.getElementById("go2").disabled=false; }
+    else { b.classList.add("wrong"); fb.className="fb ko"; fb.textContent="Не совсем — загляни в меню ещё раз."; }
+  }); });
+  quiz.appendChild(d);
+});
+
+var t1=document.getElementById("t1"), t2=document.getElementById("t2"), s1=document.getElementById("s1"), s2=document.getElementById("s2"), started=false;
+function tab(n){ s1.hidden=n!==1; s2.hidden=n!==2; t1.setAttribute("aria-selected",n===1); t2.setAttribute("aria-selected",n===2); if(n===2&&!started){ started=true; run(); } }
+t1.onclick=function(){tab(1);}; t2.onclick=function(){tab(2);};
+document.getElementById("go2").onclick=function(){ t2.disabled=false; tab(2); if(window.innerWidth<=860) s2.scrollIntoView({behavior:"smooth"}); };
+document.getElementById("seemenu").onclick=function(){ document.getElementById("menu").scrollIntoView({behavior:"smooth"}); };
+
+// dialogue script: s = serveur, m = me (with {gap}), n = narration
+var BANK=["deux","trois","terrasse","salle","comptoir","crème","allongé","pain","croissant","carafe","bouteille","addition","carte","menu","espèces"];
+var D=[
+ {s:"Bonjour ! Vous êtes combien ?"},
+ {m:"Nous sommes {gap}, mon amie arrive.",a:"deux",why:{trois:"Ты и Léa — сколько вас?",_:"Здесь нужно число: ты и подруга."}},
+ {s:"En salle ou en terrasse ?"},
+ {m:"En {gap}, s'il vous plaît.",a:"terrasse",why:{salle:"По миссии ты ждёшь Léa на террасе.",comptoir:"У стойки не сидят — там пьют кофе стоя.",_:"Где ты по миссии?"}},
+ {s:"Qu'est-ce que je vous sers ?"},
+ {m:"Je vais prendre un café {gap} et un croissant aux amandes.",a:"crème",why:{"allongé":"Allongé — разбавленный эспрессо, без молока. А тебе нужен кофе с молоком.",_:"Какой кофе в меню с молоком?"}},
+ {s:"Ah, désolé, il n'y a plus de croissants aux amandes. Je vous propose un croissant nature ou un pain au chocolat ?"},
+ {m:"Alors, un {gap} au chocolat.",a:"pain",why:{croissant:"«Croissant au chocolat» во Франции не говорят: это pain au chocolat (а на юго-западе — chocolatine!).",_:"Посмотри, как это называется в меню."}},
+ {s:"Très bien. Et pour l'eau : une bouteille ou une carafe ?"},
+ {m:"Une {gap} d'eau, s'il vous plaît.",a:"carafe",why:{bouteille:"Бутылка стоит 5 € — посмотри меню. А графин воды из-под крана приносят бесплатно.",_:"Бутылка или графин?"}},
+ {n:"…vingt minutes plus tard, Léa est là, les tasses sont vides…"},
+ {m:"L'{gap}, s'il vous plaît !",a:"addition",why:{carte:"La carte — это меню. А счёт — l'addition.",menu:"Le menu — это комплексный обед по фиксированной цене. Счёт — l'addition.",_:"Как попросить счёт?"}},
+ {s:"Vous réglez comment ?"},
+ {m:"Par {gap}.",a:"carte",why:{"espèces":"Espèces — это наличные, а у тебя только карта.",_:"Чем ты платишь по миссии?"}},
+ {s:"Merci, bonne fin de journée !"}
+];
+var chat=document.getElementById("chat"), bank=document.getElementById("bank"), hint=document.getElementById("hint"), step=-1, cur=null;
+bank.innerHTML=BANK.map(function(w){return '<button class="chip" disabled>'+w+'</button>';}).join("");
+var chips=bank.querySelectorAll(".chip");
+function esc(t){return String(t).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+function add(cls,html,who){ var d=document.createElement("div"); d.className="msg "+cls; d.innerHTML=(who?'<span class="who">'+who+'</span>':'')+html; chat.appendChild(d); return d; }
+function run(){ next(); }
+function next(){
+  step++; if(step>=D.length){ finish(); return; }
+  var it=D[step];
+  if(it.s){ add("srv",esc(it.s),"Serveur"); setTimeout(next,550); }
+  else if(it.n){ add("note",esc(it.n)); setTimeout(next,700); }
+  else { var parts=it.m.split("{gap}"); var d=add("me",esc(parts[0])+'<span class="gap active">&nbsp;</span>'+esc(parts[1]),"Toi");
+    cur={it:it,gap:d.querySelector(".gap")}; chips.forEach(function(c){c.disabled=false;}); hint.textContent=""; }
+}
+chips.forEach(function(c){ c.addEventListener("click",function(){
+  if(!cur) return; var w=c.textContent;
+  if(w===cur.it.a){ cur.gap.textContent=w; cur.gap.className="gap done"; cur=null; chips.forEach(function(x){x.disabled=true;}); hint.textContent=""; setTimeout(next,450); }
+  else { hint.textContent=(cur.it.why[w]||cur.it.why._); cur.gap.classList.remove("shake"); void cur.gap.offsetWidth; cur.gap.classList.add("shake"); }
+}); });
+function finish(){ bank.hidden=true; hint.hidden=true; document.getElementById("final").hidden=false; }
+})();
+</script>
+</body>
+</html>
