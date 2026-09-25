@@ -14,7 +14,7 @@
   html, body { height: 100%; margin: 0; }
   body {
     background-color: #2E2517;
-    background-image: url("../assets/map/water-poster.jpg");
+    background-image: url("../assets/map/water-poster.webp");
     background-size: cover; background-position: center; background-repeat: no-repeat;
     font-family: var(--font-body); color: var(--card); -webkit-font-smoothing: antialiased;
     display: flex; align-items: flex-end; justify-content: center;

@@ -29,35 +29,35 @@
   };
   var CITIES = {
     paris: { name:"Париж", x:729, y:445, parent:null, cost:0, capital:true,
-      hero:"assets/heroes/paris.jpg",
+      hero:"assets/heroes/paris.webp", peek:"assets/heroes/small/paris.webp",
       themes:[
         {icon:"☕", img:"assets/themes/paris--cafe-boheme-montparnasse.jpg", title:"Кафе и богема Монпарнаса", desc:"Экзистенциалисты, поэты и чёрный кофе — лексика спора.", quest:"cafe_flore"},
         {icon:"🖼️", img:"assets/themes/paris--louvre-orsay.jpg", title:"Лувр и Орсе", desc:"От классики до импрессионистов — язык живописи.", quest:"louvre"},
         {icon:"👗", img:"assets/themes/paris--maison-haute-couture.jpg", title:"Дом высокой моды", desc:"Лексика вкуса, силуэта и стиля.", quest:"couture"}
       ]},
     hauts_de_france: { name:"О-де-Франс", x:821, y:262, parent:"paris", cost:15,
-      hero:"assets/heroes/hauts_de_france.jpg",
+      hero:"assets/heroes/hauts_de_france.webp", peek:"assets/heroes/small/hauts_de_france.webp",
       themes:[
         {icon:"🧱", img:"assets/themes/hauts_de_france--heritage-flamand.jpg", title:"Фламандское наследие", desc:"Архитектура на стыке двух культур."},
         {icon:"🎈", img:"assets/themes/hauts_de_france--jules-verne.jpg", title:"Жюль Верн", desc:"Воздушные шары и рождение приключенческого романа."},
-        {icon:"🐎", title:"Шато де Шантийи", desc:"Ренессансный замок, сады и знаменитое кружево.", img:"assets/themes/hauts_de_france--chateau-de-chantilly.jpg"}
+        {icon:"🐎", title:"Шато де Шантийи", desc:"Ренессансный замок, сады и знаменитое кружево.", img:"assets/themes/hauts_de_france--chateau-de-chantilly.webp"}
       ]},
     normandie: { name:"Нормандия", x:481, y:432, parent:"paris", cost:15,
-      hero:"assets/heroes/normandie.jpg",
+      hero:"assets/heroes/normandie.webp", peek:"assets/heroes/small/normandie.webp",
       themes:[
         {icon:"⚔️", img:"assets/themes/normandie--jeanne-darc.jpg", title:"Жанна д’Арк", desc:"Легенда и площадь, которая помнит."},
         {icon:"🏰", img:"assets/themes/normandie--mont-saint-michel.jpg", title:"Мон-Сен-Мишель", desc:"Аббатство-остров посреди приливов Ла-Манша."},
         {icon:"🧀", img:"assets/themes/normandie--fromages-normandie.jpg", title:"Сыры Нормандии", desc:"Камамбер, ливаро, пон-л’эвек — родина мягких сыров."}
       ]},
     bretagne: { name:"Бретань", x:221, y:542, parent:"paris", cost:25,
-      hero:"assets/heroes/bretagne.jpg",
+      hero:"assets/heroes/bretagne.webp", peek:"assets/heroes/small/bretagne.webp",
       themes:[
-        {icon:"🎶", img:"assets/themes/bretagne--harpe-celtique.jpg", title:"Кельтская арфа", desc:"Музыка и наследие кельтов Бретани."},
-        {icon:"🚢", img:"assets/themes/bretagne--phares-navigation.jpg", title:"Маяки и мореплавание", desc:"Скалистые берега и огни на страже моряков."},
-        {icon:"🦐", img:"assets/themes/bretagne--fruits-de-mer.jpg", title:"Морепродукты", desc:"Устрицы, крабы и лангустины Атлантики."}
+        {icon:"🎶", img:"assets/themes/bretagne--harpe-celtique.webp", title:"Кельтская арфа", desc:"Музыка и наследие кельтов Бретани."},
+        {icon:"🚢", img:"assets/themes/bretagne--phares-navigation.webp", title:"Маяки и мореплавание", desc:"Скалистые берега и огни на страже моряков."},
+        {icon:"🦐", img:"assets/themes/bretagne--fruits-de-mer.webp", title:"Морепродукты", desc:"Устрицы, крабы и лангустины Атлантики."}
       ]},
     nouvelle_aquitaine: { name:"Нувель-Акитен", x:516, y:1072, parent:"bretagne", cost:20,
-      hero:"assets/heroes/nouvelle_aquitaine.jpg",
+      hero:"assets/heroes/nouvelle_aquitaine.webp", peek:"assets/heroes/small/nouvelle_aquitaine.webp",
       themes:[
         {icon:"🍷", img:"assets/themes/nouvelle_aquitaine--terroir-vin.jpg", title:"Терруар и вино", desc:"Шато, дегустация, миллезим."},
         {icon:"🏛️", img:"assets/themes/nouvelle_aquitaine--age-dor-architecture.jpg", title:"Золотой век архитектуры", desc:"Фасады XVIII века у Гаронны."},
@@ -71,7 +71,7 @@
         {icon:"🧱", img:"assets/themes/occitanie--ville-rose.jpg", title:"Розовый город", desc:"«Ville rose» — лексика цвета."}
       ]},
     provence: { name:"Прованс", x:1066, y:1047, parent:"occitanie", cost:20,
-      hero:"assets/heroes/provence.jpg",
+      hero:"assets/heroes/provence.webp", peek:"assets/heroes/small/provence.webp",
       themes:[
         {icon:"🛥️", img:"assets/themes/provence--saint-tropez.jpg", title:"Сен-Тропе", desc:"Яхты, пальмы и родина пляжного шика."},
         {icon:"🎨", img:"assets/themes/provence--lumiere-provence.jpg", title:"Свет Прованса в живописи", desc:"Ван Гог, Сезанн и Матисс — почему художники ехали именно сюда."},
@@ -315,7 +315,10 @@
     previewId = id;
     var c = CITIES[id];
     previewCardsEl.innerHTML = buildMiniDeckHTML(c);
-    var heroSrc = getCityHeroSrc(id);
+    // The peek box is ~200px wide, so it uses the small copy; the full-size hero
+    // starts downloading now so it's ready if the player goes into the city.
+    var heroSrc = c.peek || getCityHeroSrc(id);
+    if (c.peek) warmImage(getCityHeroSrc(id));
     previewPeekEl.innerHTML = '<button type="button" class="city-peek" id="popCityPeek" aria-label="Войти в '+c.name+'">'
       + (heroSrc ? '<img src="'+heroSrc+'" alt="">' : '') + '<span class="peek-badge">→</span></button>';
     document.getElementById("popCityPeek").addEventListener("click", function(e){ e.stopPropagation(); enterCity(id); });
@@ -540,11 +543,11 @@
   // Sticker-style category badges (die-cut from the person's Paris scrapbook collage,
   // background removed), reused across every quest: same 5 rubrics regardless of city/theme.
   var QUEST_CATEGORY_ICON = {
-    observe: '<img src="assets/icons/icon-observe.png" alt="" loading="lazy">',
-    menu: '<img src="assets/icons/icon-menu.png" alt="" loading="lazy">',
-    news: '<img src="assets/icons/icon-news.png" alt="" loading="lazy">',
-    magazine: '<img src="assets/icons/icon-magazine.png" alt="" loading="lazy">',
-    dispute: '<img src="assets/icons/icon-dispute.png" alt="" loading="lazy">'
+    observe: '<img src="assets/icons/icon-observe.webp" alt="" loading="lazy">',
+    menu: '<img src="assets/icons/icon-menu.webp" alt="" loading="lazy">',
+    news: '<img src="assets/icons/icon-news.webp" alt="" loading="lazy">',
+    magazine: '<img src="assets/icons/icon-magazine.webp" alt="" loading="lazy">',
+    dispute: '<img src="assets/icons/icon-dispute.webp" alt="" loading="lazy">'
   };
 
   function questProgressFor(key){
@@ -701,6 +704,22 @@
     if (playPromise && playPromise.catch) playPromise.catch(function(){});
   }
 
+  // Once the map is up, fetch the small images every city preview shows (theme
+  // thumbnails + peek photo, ~1.1 MB in total) so a tap on a pin shows them at once.
+  var warmed = {};
+  function warmImage(src){
+    if (!src || warmed[src]) return;
+    warmed[src] = new Image();
+    warmed[src].src = src;
+  }
+  function warmCityPreviews(){
+    ORDER.forEach(function(id){
+      var c = CITIES[id];
+      c.themes.forEach(function(t){ warmImage(t.img); });
+      warmImage(c.peek || getCityHeroSrc(id));
+    });
+  }
+
   // Splash stays up until the map image is downloaded and decoded (or 10 s pass,
   // so a slow connection never leaves the player stuck on the splash).
   var splashDone = false;
@@ -710,6 +729,7 @@
     requestAnimationFrame(function(){ requestAnimationFrame(function(){
       var splash = document.getElementById("splash");
       if (splash) splash.classList.add("hide");
+      warmCityPreviews();
       startBgVideo();
     }); });
   }
