@@ -678,15 +678,38 @@
 
   window.addEventListener("resize", function(){ if (openId && pinned) openPopover(openId, true); });
 
-  var bgVideo = document.getElementById("bgVideo");
-  if (bgVideo){
+  // Video starts only after the map is on screen, so the 6.6 MB loop doesn't
+  // compete with the map image for bandwidth during the first load.
+  function startBgVideo(){
+    var bgVideo = document.getElementById("bgVideo");
+    if (!bgVideo) return;
     var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!reduceMotion){
-      bgVideo.addEventListener("playing", function(){ bgVideo.classList.add("show"); });
-      var playPromise = bgVideo.play();
-      if (playPromise && playPromise.catch) playPromise.catch(function(){});
-    }
+    if (reduceMotion) return;
+    bgVideo.addEventListener("playing", function(){ bgVideo.classList.add("show"); });
+    bgVideo.preload = "auto";
+    var playPromise = bgVideo.play();
+    if (playPromise && playPromise.catch) playPromise.catch(function(){});
   }
+
+  // Splash stays up until the map image is downloaded and decoded (or 10 s pass,
+  // so a slow connection never leaves the player stuck on the splash).
+  var splashDone = false;
+  function hideSplash(){
+    if (splashDone) return;
+    splashDone = true;
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      var splash = document.getElementById("splash");
+      if (splash) splash.classList.add("hide");
+      startBgVideo();
+    }); });
+  }
+  var mapImg = new Image();
+  mapImg.onload = function(){
+    if (mapImg.decode) mapImg.decode().then(hideSplash, hideSplash); else hideSplash();
+  };
+  mapImg.onerror = hideSplash;
+  mapImg.src = IMG_SRC;
+  setTimeout(hideSplash, 10000);
 
   renderMap();
   renderHeader();

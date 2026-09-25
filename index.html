@@ -8,9 +8,33 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+<link rel="preload" href="assets/map/france-map.png" as="image" fetchpriority="high">
+<style>
+  /* Заставка — стили прямо здесь, чтобы она появилась мгновенно, до загрузки всего остального */
+  #splash {
+    position: fixed; inset: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+    background: #2E2517; color: #F3EAD1; text-align: center;
+    transition: opacity .6s ease, visibility .6s;
+  }
+  #splash.hide { opacity: 0; visibility: hidden; }
+  #splash .splash-title { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: clamp(30px, 7vw, 52px); letter-spacing: .01em; }
+  #splash .splash-sub { font-family: 'Work Sans', system-ui, sans-serif; font-size: 15px; color: #D9B45C; margin-top: 10px; opacity: .9; }
+  #splash .splash-track { width: 140px; height: 2px; margin: 26px auto 0; background: rgba(243,234,209,.15); border-radius: 2px; overflow: hidden; }
+  #splash .splash-track i { display: block; width: 40%; height: 100%; background: #D9B45C; border-radius: 2px; animation: splashRun 1.3s ease-in-out infinite; }
+  @keyframes splashRun { 0% { transform: translateX(-100%); } 100% { transform: translateX(250%); } }
+  @media (prefers-reduced-motion: reduce) { #splash .splash-track i { animation: none; width: 100%; opacity: .5; } }
+</style>
 </head>
 <body>
-<video id="bgVideo" autoplay muted loop playsinline preload="auto" poster="assets/map/water-poster.jpg">
+<div id="splash" role="status" aria-live="polite">
+  <div>
+    <div class="splash-title">Voyage en France</div>
+    <div class="splash-sub">Собираем чемодан…</div>
+    <div class="splash-track"><i></i></div>
+  </div>
+</div>
+<video id="bgVideo" muted loop playsinline preload="none" poster="assets/map/water-poster.jpg">
   <source src="assets/map/water-loop.mp4" type="video/mp4"></video>
 <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Voyage en France — карта путешествия по французскому языку</h1>
 
